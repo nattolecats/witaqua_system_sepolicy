@@ -29,6 +29,9 @@ hal_client_domain(bootanim, hal_graphics_composer)
 binder_use(bootanim)
 binder_call(bootanim, surfaceflinger)
 binder_call(bootanim, audioserver)
+binder_call(audioserver, bootanim)
+binder_call(bootanim, mediametrics)
+binder_call(bootanim, system_server)
 
 hwbinder_use(bootanim)
 
@@ -44,7 +47,9 @@ allow bootanim bootanim_oem_file:file r_file_perms;
 allow bootanim audio_device:dir r_dir_perms;
 allow bootanim audio_device:chr_file rw_file_perms;
 
+allow bootanim audio_service:service_manager find;
 allow bootanim audioserver_service:service_manager find;
+allow bootanim mediametrics_service:service_manager find;
 allow bootanim surfaceflinger_service:service_manager find;
 allow bootanim surfaceflinger:unix_stream_socket { read write };
 
